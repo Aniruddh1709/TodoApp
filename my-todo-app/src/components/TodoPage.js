@@ -8,22 +8,26 @@ const todos=['Clean Car','Wash Clothes','Study']
 function TodoPage() {
     const[newtodovalue , setnewtodovalue]=useState('')
     const[Todos,setTodos]=useState(['Clean Car','Wash Clothes','Study'])
+    const [todoState,setTodoState]=useState(new Array(Todos.length).fill(0))
  
-
+    
     const addTodo = (e) =>{
     let v = document.getElementById('newTodo')
     let val = v.value
-    console.log(val)
-    todos.push(val)
-    
-    setTodos(todos)
+    Todos.push(val)
+    todoState.push(0)
     }
-    const deleteTodo = (e) =>{
-        let v = document.getElementById('newTodo')
-        let val = v.value
-        console.log(val)
-        todos.push(val)
-        setTodos(todos)
+
+
+    const deleteTodo = () =>{
+       
+        var filtered=  Todos.filter(function(value,index,arr){
+               if(todoState[index]!=1){
+                   return value;
+               } 
+          })
+          setTodos(filtered)
+        
         }
         
     return (
@@ -37,7 +41,7 @@ function TodoPage() {
                     </div>
                 </div>
                 <div className="TodoContainer">
-                   {<Todo todos={Todos}/>}
+                   {<Todo todoState={todoState} todos={Todos}/>}
                     
                 </div>
 
